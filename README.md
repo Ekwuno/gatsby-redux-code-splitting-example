@@ -1,9 +1,17 @@
 # Gatsby Redux Lazy Loading
 
-The goal is to show an example of not just loading a slice of a Redux store when a component mounts, but when the user interacts with the site. In this case, there is an expensive reducer that:
+## Goal
+
+The goal is to show a pattern of _not_ just loading a slice of a Redux store when a component mounts, but _when the user interacts with the site_. In this case, there is an expensive reducer that:
 
 - has a large 3rd party dependency
 - imports a large JSON file and sets it in the store
+
+## Live demo:
+
+gatsbyreduxcodesplittingexampl.gtsb.io
+
+## Current State
 
 Current state of the repo has removed it from the app and page bundles, and successfully only loads its vendor file and reducer file when the button is clicked.
 
