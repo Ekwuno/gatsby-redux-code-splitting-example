@@ -1,46 +1,28 @@
 import React from "react"
-import { Link } from "gatsby"
 import { connect } from "react-redux"
-
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import ReduxButton from "../components/redux-button"
 
-import { toggleDarkMode } from "../redux/app"
-import { loadData } from "../redux/dummy"
+import { toggleDarkMode } from "../redux/reducers/app"
 
-const IndexPage = ({ isDarkMode, dummyData, dispatch }) => {
-  console.log(dummyData)
+const IndexPage = ({ isDarkMode, dispatch }) => {
   return (
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-      <h1>Hi people</h1>
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>
+
       <button
+        // Simple dispatch works fine.
         style={isDarkMode ? { background: "black", color: "white" } : null}
         onClick={() => dispatch(toggleDarkMode(!isDarkMode))}
       >
         Dark mode {isDarkMode ? "on" : "off"}
       </button>
-      <button
-        style={isDarkMode ? { background: "black", color: "white" } : null}
-        onClick={() => dispatch(loadData())}
-      >
-        Load Data {dummyData ? "on" : "off"}
-      </button>
-      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-        <Image />
-      </div>
-      <Link to="/page-2/">Go to page 2</Link>
+      <ReduxButton />
     </Layout>
   )
 }
 
-export default connect(
-  state => ({
-    isDarkMode: state.app.isDarkMode,
-    dummyData: state.dummy.data,
-  }),
-  null
-)(IndexPage)
+export default connect(state => ({
+  isDarkMode: state.app.isDarkMode,
+}))(IndexPage)
