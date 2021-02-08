@@ -1,18 +1,21 @@
-import reducerRegistry from '../../reducerRegistry'
-import dummyData from "../../data/dummy.json"
+import reducerRegistry from "../reducerRegistry"
+import { createActionName } from "../utils"
+import dummyData from "../data/dummy.json"
 // Imports expensive 3rd party library.
+// eslint-disable-next-line
 import nodeLibs from "node-libs-browser"
 
+// Set initial state for this slice of the store.
 const initialState = {
-  data: {},
+  data: [],
   isLoaded: false,
 }
 
-const reducerName = 'dummyData'
+// Give the reducer a unique name.
+const reducerName = "dummyData"
 
-const createActionName = name => `app/${reducerName}/${name}`;
-
-export const LOAD_DATA = createActionName(LOAD_DATA);
+// Create a name for the action type.
+export const LOAD_DATA = createActionName(reducerName)
 
 export const loadData = isLoaded => ({
   type: LOAD_DATA,
@@ -29,4 +32,4 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-reducerRegistry.register(reducerName, reducer);
+reducerRegistry.register(reducerName, reducer)

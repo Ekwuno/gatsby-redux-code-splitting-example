@@ -1,28 +1,26 @@
-import reducerRegistry from '../../reducerRegistry'
+import reducerRegistry from "../reducerRegistry"
+import { createActionName } from "../utils"
 
 export const initialState = {
   isDarkMode: false,
 }
 
-const reducerName = 'darkMode'
-
-const createActionName = name => `app/${reducerName}/${name}`;
+const reducerName = "darkMode"
 
 export const toggleDarkMode = isDarkMode => ({
   type: TOGGLE_DARKMODE,
   isDarkMode,
 })
 
-export const TOGGLE_DARKMODE = createActionName(`TOGGLE_DARKMODE`)
+export const TOGGLE_DARKMODE = createActionName(reducerName)
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case TOGGLE_DARKMODE:
-      console.log(`Dark mode: ${!state.isDarkMode}`);
       return { ...state, isDarkMode: !state.isDarkMode }
     default:
       return state
   }
 }
 
-reducerRegistry.register(reducerName, reducer);
+reducerRegistry.register(reducerName, reducer)
