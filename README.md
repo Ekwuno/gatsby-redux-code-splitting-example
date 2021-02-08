@@ -7,14 +7,22 @@ The goal is to show a pattern of _not_ just loading a slice of a Redux store whe
 - has a large 3rd party dependency
 - imports a large JSON file and sets it in the store
 
+This is very useful for parts of the store that are:
+
+- not present on every page
+  or
+- not present on a page without a certain user action
+
+For less expensive slices of the store, this pattern may be overkill, but for expensive parts it is worth it.
+
+## Why
+
+The reason we have to be especially "careful" with Redux with Gatsby is that Gatsby's default code-splitting will be looking for code that is unique to a certain page and bundle it up, but if it sees code across more than one page, it will end up in the `app` or `commons` bundle and be loaded on every page, whether it is used or not. In this example the large 3rd party dependency and large array of dummy data would otherwise be loaded on every page, over 400kb! [See this article by Ben Robertson on Gatsby code splitting](https://benrobertson.io/notes/gatsby-and-bundle-chunking).
+
+## Pattern
+
+The app works based on the [implementation of the Redux Modules or Reducer Registry pattern found here](http://nicolasgallagher.com/redux-modules-and-code-splitting/) by Nicholas Gallagher.
+
 ## Live demo:
 
-gatsbyreduxcodesplittingexampl.gtsb.io
-
-## Current State
-
-Current state of the repo has removed it from the app and page bundles, and successfully only loads its vendor file and reducer file when the button is clicked.
-
-Unfortunately, trying to read the state through the connected component does not work. The `mapStateToProps` only ever reflects the initial undefined state of the reducer that is dynamically injected on button click. So the button does not re-render and the updated `store` values are not reflected. However logging the `store` directly with `getStore` and `getState` does show the correct data, so it is being updated correctly under the hood.
-
-![network tab](https://github.com/gatsby-inc/gatsby-redux-code-splitting-example/blob/main/static/screenshot.png)
+[gatsbyreduxcodesplittingexampl.gtsb.io](gatsbyreduxcodesplittingexampl.gtsb.io)
