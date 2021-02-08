@@ -1,21 +1,25 @@
-import { createStore } from "redux"
-import reducers from "./reducers"
+import { combineReducers, createStore } from 'redux';
+import reducerRegistry from './reducerRegistry';
 
-// Configure the store
-export default function configureStore(initialState) {
-  const store = createStore(reducers(), initialState)
+const initialState = {}
 
-  // Add a dictionary to keep track of the registered async reducers
-  store.asyncReducers = {}
+// Preserve initial state for not-yet-loaded reducers
+const combine = (reducers) => {
+  const reducerNames = Object.keys(reducers);
+  Object.keys(initialState).forEach(item => {
+    if (reducerNames.indexOf(item) === -1) {
+      reducers[item] = (state = null) => state;
+    }
+  });
+  return combineReducers(reducers);
+};
 
-  // Create an inject reducer function
-  // This function adds the async reducer, and creates a new combined reducer
-  store.injectReducer = (key, asyncReducer) => {
-    store.asyncReducers[key] = asyncReducer
-    store.replaceReducer(reducers(store.asyncReducers))
-  }
+const reducer = combine(reducerRegistry.getReducers());
+const store = createStore(reducer, initialState);
 
-  // Return the modified store
+// Replace the store's reducer whenever a new reducer is registered.
+reducerRegistry.setChangeListener(reducers => {
+  store.replaceReducer(combine(reducers));
+});
 
-  return store
-}
+export default store;

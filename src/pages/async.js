@@ -1,18 +1,18 @@
-import { Link } from "gatsby"
 import React from "react"
 import { connect } from "react-redux"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import ReduxButton from "../components/redux-button"
 
 import { toggleDarkMode } from "../redux/reducers/darkMode/index"
+import { Link } from "gatsby"
 
-const IndexPage = ({ isDarkMode, dispatch }) => {
+const AsyncPage = ({ isDarkMode, dispatch }) => {
   return (
     <Layout>
-      <Link to="/async">Go to Async</Link>
-      <br />
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-
+      <Link to="/">Go Home</Link>
+      <br />
       <button
         // Simple dispatch works fine.
         style={isDarkMode ? { background: "black", color: "white" } : null}
@@ -20,6 +20,7 @@ const IndexPage = ({ isDarkMode, dispatch }) => {
       >
         Dark mode {isDarkMode ? "on" : "off"}
       </button>
+      <ReduxButton />
     </Layout>
   )
 }
@@ -29,4 +30,4 @@ export default connect(state => {
   return ({
     isDarkMode: state.darkMode.isDarkMode,
   })
-})(IndexPage)
+})(AsyncPage)
