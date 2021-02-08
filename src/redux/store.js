@@ -1,21 +1,29 @@
-import { createStore } from "redux"
-import reducers from "./reducers"
+import { combineReducers, createStore } from "redux"
+import reducerRegistry from "./reducerRegistry"
+import darkMode from "./reducers/darkMode"
 
-// Configure the store
-export default function configureStore(initialState) {
-  const store = createStore(reducers(), initialState)
-
-  // Add a dictionary to keep track of the registered async reducers
-  store.asyncReducers = {}
-
-  // Create an inject reducer function
-  // This function adds the async reducer, and creates a new combined reducer
-  store.injectReducer = (key, asyncReducer) => {
-    store.asyncReducers[key] = asyncReducer
-    store.replaceReducer(reducers(store.asyncReducers))
-  }
-
-  // Return the modified store
-
-  return store
+// Attach reducers that are always used and part of the store.
+const initialState = {
+  darkMode: darkMode,
 }
+
+// Preserve initial state for not-yet-loaded reducers
+const combine = reducers => {
+  const reducerNames = Object.keys(reducers)
+  Object.keys(initialState).forEach(item => {
+    if (reducerNames.indexOf(item) === -1) {
+      reducers[item] = (state = null) => state
+    }
+  })
+  return combineReducers(reducers)
+}
+
+const reducer = combine(reducerRegistry.getReducers())
+const store = createStore(reducer, initialState)
+
+// Replace the store's reducer whenever a new reducer is registered.
+reducerRegistry.setChangeListener(reducers => {
+  store.replaceReducer(combine(reducers))
+})
+
+export default store
