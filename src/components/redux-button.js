@@ -10,21 +10,23 @@ const ReduxButton = ({ isLoaded, dummyData }) => {
   return (
     <>
       <button
+        className="button"
         onClick={() => {
           // On click, load the reducer.
           import(
             /* webpackChunkName: "dummy" */ "../redux/reducers/dummy.js"
           ).then(({ loadData }) => {
             // Then run our expensive dispatch.
-            store.dispatch(loadData())
+            store.dispatch(loadData(true))
           })
         }}
       >
-        Is data loaded? {isLoaded ? "yes" : "no"}
+        {isLoaded
+          ? "The data's set!"
+          : "Fetch the data and set it in the store!"}
       </button>
       <div>
-        <h2>Data</h2>
-        {!dummyData && <div>No data</div>}
+        {!dummyData && <div>No data in the store yet!</div>}
         {dummyData &&
           dummyData.length > 0 &&
           dummyData.map(item => <div key={item.name}>{item.name}</div>)}

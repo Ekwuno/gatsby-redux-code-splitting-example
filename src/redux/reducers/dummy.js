@@ -26,7 +26,7 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_DATA:
       // Set isLoaded value and attached expensive JSON file.
-      return { ...state, data: dummyData, isLoaded: !state.isLoaded }
+      return { ...state, data: dummyData, isLoaded: action.isLoaded }
     default:
       return state
   }

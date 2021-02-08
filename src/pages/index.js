@@ -5,22 +5,23 @@ import SEO from "../components/seo"
 import ReduxButton from "../components/redux-button"
 
 import { toggleDarkMode } from "../redux/reducers/darkMode.js"
-import { Link } from "gatsby"
 
 const IndexPage = ({ isDarkMode, dispatch }) => {
   return (
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-      <Link to="/">Go Home</Link>
       <br />
+      <h2>A simple slice of the store for dark mode</h2>
       <button
         // Simple dispatch works fine.
+        className="button dark-mode-button"
         style={isDarkMode ? { background: "black", color: "white" } : null}
         onClick={() => dispatch(toggleDarkMode(!isDarkMode))}
       >
-        Dark mode {isDarkMode ? "on" : "off"}
+        Dark Mode {isDarkMode ? "On" : "Off"}
       </button>
       {/* More complex slice of the store handled in here. */}
+      <h2>Data In the Redux Store Set Dynamically</h2>
       <ReduxButton />
     </Layout>
   )
