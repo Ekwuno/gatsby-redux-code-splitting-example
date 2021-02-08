@@ -7,7 +7,7 @@ import ReduxButton from "../components/redux-button"
 import { toggleDarkMode } from "../redux/reducers/darkMode.js"
 import { Link } from "gatsby"
 
-const AsyncPage = ({ isDarkMode, dispatch }) => {
+const IndexPage = ({ isDarkMode, dispatch }) => {
   return (
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
@@ -30,4 +30,4 @@ export default connect(state => {
   return {
     isDarkMode: state.darkMode.isDarkMode,
   }
-})(AsyncPage)
+})(IndexPage)
