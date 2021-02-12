@@ -3,7 +3,7 @@ import dummyData from "../data/dummy.json"
 import nodeLibs from "node-libs-browser"
 
 const initialState = {
-  data: {},
+  data: null,
   isLoaded: false,
 }
 
