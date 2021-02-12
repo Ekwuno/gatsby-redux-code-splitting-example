@@ -11,6 +11,11 @@ const ReduxButton = ({ isLoaded, dummyData }) => {
     <>
       <button
         className="button"
+        style={
+          isLoaded
+            ? { backgroundColor: "#006ac1", color: "white" }
+            : { backgroundColor: "#bc027f", color: "white" }
+        }
         onClick={() => {
           // On click, load the reducer.
           import(
