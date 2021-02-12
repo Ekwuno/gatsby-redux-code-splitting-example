@@ -54,7 +54,7 @@ const IndexPage = ({ isDarkMode, dispatch }) => {
             <li>sets a large data set in to the store</li>
           </ul>
           <p>
-            Watch the network tab when the page loads and see the data a
+            Watch the network tab when the page loads and see the data and
             dependencies loaded before the user clicks the button. Wasteful!
           </p>
           <ReduxButton />
