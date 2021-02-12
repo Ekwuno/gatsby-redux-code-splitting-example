@@ -19,6 +19,7 @@ const combine = reducers => {
 }
 
 const reducer = combine(reducerRegistry.getReducers())
+
 const store = createStore(reducer, initialState)
 
 // Replace the store's reducer whenever a new reducer is registered.

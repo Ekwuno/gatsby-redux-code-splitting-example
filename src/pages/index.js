@@ -17,7 +17,11 @@ const IndexPage = ({ isDarkMode, dispatch }) => {
         out a certain interaction. This results in a smaller app bundle in
         Gatsby by only loading its code, <i>its dependencies and its data</i>{" "}
         when needed. To see the basic example that loads all reducers initially
-        , <a href="https://gatsbyreduxcodesplittingexampl.gtsb.io/">go here</a>.
+        ,{" "}
+        <a href="https://build-dc43cf70-b1b5-4a32-add3-1852d6210f53.gtsb.io/">
+          go here
+        </a>
+        .
       </p>
       <div className="container">
         <div>
