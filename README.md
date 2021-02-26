@@ -23,6 +23,11 @@ The reason we have to be especially "careful" with Redux with Gatsby is that Gat
 
 The app works based on the [implementation of the Redux Modules or Reducer Registry pattern found here](https://nicolasgallagher.com/redux-modules-and-code-splitting/) by Nicholas Gallagher.
 
+## Running Locally
+
+`npm install`
+`npm run start`
+
 ## Live demo:
 
 [gatsbyreduxcodesplittingexampl.gtsb.io](https://gatsbyreduxcodesplittingexampl.gtsb.io)
